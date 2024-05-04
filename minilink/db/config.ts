@@ -21,6 +21,7 @@ const ShortenedUrl = defineTable({
 // https://astro.build/db/config
 export default defineDb({
   tables: {
-
+    User,
+    ShortenedUrl
   }
 });
