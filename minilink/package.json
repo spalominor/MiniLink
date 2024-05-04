@@ -13,9 +13,14 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/db": "^0.11.0",
     "@astrojs/node": "^8.2.5",
+    "@astrojs/react": "^3.3.2",
     "@auth/core": "^0.18.6",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
     "astro": "^4.7.1",
     "auth-astro": "^4.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "typescript": "^5.4.5"
   }
 }

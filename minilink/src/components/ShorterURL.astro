@@ -1,0 +1,59 @@
+---
+import ShorterURLReact from './ShorterURL'
+---
+
+<section>
+    <ShorterURLReact client:load />
+</section>
+
+<style is:global>
+    section {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    #shorter-url-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .shorter-url-form-input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.1rem;
+    }
+
+    .shorter-url-form-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        background-color: #088f62;
+
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .shorter-url-form-button:hover {
+        background-color: #0a6e4f;
+    }
+
+    .shorter-url-form-error {
+        color: red;
+        font-size: 0.8rem;
+        margin: 10px 0;
+    }
+</style>
