@@ -1,5 +1,8 @@
 ---
 import ShorterURLReact from './ShorterURL'
+import { getSession } from 'auth-astro/server'
+
+const session = getSession(Astro.request)
 ---
 
 <section>
@@ -10,7 +13,7 @@ import ShorterURLReact from './ShorterURL'
     section {
         display: flex;
         flex-direction: column;
-        width: 40%;
+        width: 80%;
         margin: 0 auto;
         align-items: center;
     }
@@ -22,8 +25,7 @@ import ShorterURLReact from './ShorterURL'
     }
 
     .shorter-url-form-input {
-        width: 100%;
-        padding: 10px;
+        padding: 0.5rem;
         margin: 10px 0;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -31,24 +33,37 @@ import ShorterURLReact from './ShorterURL'
     }
 
     .shorter-url-form-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         cursor: pointer;
-        width: 100%;
         padding: 10px;
         margin: 10px 0;
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 1.1rem;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem;
         background-color: #088f62;
 
         transition: background-color 0.2s ease-in-out;
     }
 
     .shorter-url-form-button:hover {
-        background-color: #0a6e4f;
+        background-color: #3fd690;
+    }
+
+    .shorter-url-form-copy-button {
+        cursor: pointer;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        padding: 0.5rem;
+        background-color: #088f62;
+
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .shorter-url-form-copy-button:hover {
+        background-color: #3fd690;
     }
 
     .shorter-url-form-error {
@@ -56,4 +71,5 @@ import ShorterURLReact from './ShorterURL'
         font-size: 0.8rem;
         margin: 10px 0;
     }
+
 </style>

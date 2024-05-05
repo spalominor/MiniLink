@@ -12,7 +12,10 @@ const User = defineTable({
 // Definir la tabla ShortenedUrl para almacenar las URL acortadas
 const ShortenedUrl = defineTable({
   columns: {
-    userId: column.number({ references: () => User.columns.id }),
+    userId: column.number({ 
+      optional: true,
+      references: () => User.columns.id 
+    }),
     url: column.text(),
     code: column.text()
   }
