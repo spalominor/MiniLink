@@ -3,6 +3,9 @@ import { getSession } from 'auth-astro/server'
 import { db } from 'astro:db'
 import { User } from 'astro:db'
 import { like } from 'astro:db'
+import { getUserByEmail } from './utils/db'
+
+
 
 // Importar los iconos de la carpeta components
 import ChevronDown from './icons/Chevrone-down.astro'
@@ -14,11 +17,11 @@ if (session
     && session.user?.email
     && session.user?.name
 ) {
-    const res = await db.select().from(User).where(
-        like(User.email, session.user.email)
-    )
+    const res = await getUserByEmail(session.user.email)
 
-    if (res.length === 0) {
+    if (res.success &&
+        !res.data
+    ) {
         await db.insert(User).values({
             email: session.user.email,
             name: session.user.name,
