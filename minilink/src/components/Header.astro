@@ -1,75 +1,74 @@
 ---
-import { getSession } from 'auth-astro/server'
-import { db } from 'astro:db'
-import { User } from 'astro:db'
-import { like } from 'astro:db'
-import { getUserByEmail } from './utils/db'
+// Importar la función necesaria para manejar la sesión del usuario
+import { getSession } from 'auth-astro/server';
+
+// Importar las entidades necesarias para interactuar con la base de datos
+import { db } from 'astro:db';
+import { User } from 'astro:db';
+import { like } from 'astro:db';
+
+// Importar la función necesaria para obtener un usuario por su correo 
+import { getUserByEmail } from './utils/db';
+
+// Importar los iconos de la carpeta components/icons
+import ChevronDown from './icons/Chevrone-down.astro';
 
 
 
-// Importar los iconos de la carpeta components
-import ChevronDown from './icons/Chevrone-down.astro'
-
-const session = await getSession(Astro.request)
+/**
+ * Maneja la sesión del usuario.
+ */
+const session = await getSession(Astro.request);
 
 // Si el usuario no existe, guardaren la base de datos
-if (session
-    && session.user?.email
-    && session.user?.name
-) {
-    const res = await getUserByEmail(session.user.email)
+if (session && session.user?.email && session.user?.name) {
+    const res = await getUserByEmail(session.user.email);
 
-    if (res.success &&
-        !res.data
-    ) {
+    if (res.success && !res.data) {
         await db.insert(User).values({
             email: session.user.email,
             name: session.user.name,
-        })
+        });
     }
 }
 
 ---
 
+
 <header>
-    {session
-        ? (
-            <div id="dropdown-menu">
-                <div id="dropdown-label">
-                    <span>{
-                        session.user?.name 
-                            ? session.user?.name.split(' ')[0]
-                            : ' '
-                    }</span>
-                    <span id="chevron">
-                        <ChevronDown width="24" heigt="24"/>
-                    </span>
-                </div>
-
-                <div id="dropdown-content">
-                    <nav>
-                        <ul>
-                            <li>
-                                <a href="/my-urls">
-                                    Ver mis URLs
-                                </a>
-                            </li>
-                            <li>
-                                <button id="logout">Logout</button>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+    {session ? (
+        <div id="dropdown-menu">
+            <div id="dropdown-label">
+                <span>
+                    {session.user?.name
+                        ? session.user?.name.split(' ')[0]
+                        : ' '}
+                </span>
+                <span id="chevron">
+                    <ChevronDown width="24" heigt="24" />
+                </span>
             </div>
-        )
-        : (
-            <div>
-                <button id="login">Login</button>
-            </div>
-        )
-    }
 
+            <div id="dropdown-content">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/my-urls">Ver mis URLs</a>
+                        </li>
+                        <li>
+                            <button id="logout">Logout</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    ) : (
+        <div>
+            <button id="login">Login</button>
+        </div>
+    )}
 </header>
+
 
 <style>
     header {
@@ -77,8 +76,8 @@ if (session
         justify-content: flex-end;
         align-items: center;
         padding: 1rem;
-        }
-    
+    }
+
     button {
         border: none;
         cursor: pointer;
@@ -116,13 +115,10 @@ if (session
         display: none;
         position: absolute;
         right: 0;
-
         background-color: white;
         color: black;
-
         width: 200px;
         border-radius: 5px;
-
         padding: 0.5rem;
     }
 
@@ -138,31 +134,38 @@ if (session
         text-decoration: none;
         color: black;
     }
-    
+
     a, button {
         font-size: 1.2rem;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+         Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 
+         sans-serif;
         font-weight: 500;
     }
 
-    a:hover, button:hover{
+    a:hover, button:hover {
         color: gray;
     }
-
 </style>
 
+
 <script>
-    const { signIn, signOut } = await import("auth-astro/client")
+    // Importar las funciones signIn y signOut del cliente de autenticación
+    const { signIn, signOut } = await import("auth-astro/client");
 
-    const login = document.querySelector("#login") as HTMLButtonElement
+    // Seleccionar el botón de login
+    const login = document.querySelector("#login") as HTMLButtonElement;
 
+    // Manejar el evento click en el botón de login
     if (login) {
-        login.onclick = () => signIn("google")
+        login.onclick = () => signIn("google");
     }
 
-    const logout = document.querySelector("#logout") as HTMLButtonElement
+    // Seleccionar el botón de logout
+    const logout = document.querySelector("#logout") as HTMLButtonElement;
 
+    // Manejar el evento click en el botón de logout
     if (logout) {
-        logout.onclick = () => signOut()
+        logout.onclick = () => signOut();
     }
-  </script>
+</script>

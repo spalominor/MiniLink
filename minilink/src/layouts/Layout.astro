@@ -1,13 +1,23 @@
 ---
-import Header from '../components/Header.astro'
-import { Toaster } from 'sonner'
+// Importar el componente visual del Header.
+import Header from '../components/Header.astro';
 
+// Importar el componente visual de las notificaciones.
+import { Toaster } from 'sonner';
+
+/**
+ * Interfaz para las propiedades del componente Layout.
+ */
 interface Props {
-	title: string;
+    title: string; // El título de la página
 }
 
+/**
+ * Extrae el título de las propiedades de Astro.
+ */
 const { title } = Astro.props;
 ---
+
 
 <!doctype html>
 <html lang="es">
@@ -26,6 +36,8 @@ const { title } = Astro.props;
 		<Toaster richColors client:only/>
 	</body>
 </html>
+
+
 <style is:global>
 	:root {
 

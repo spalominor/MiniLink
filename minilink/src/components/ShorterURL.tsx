@@ -1,4 +1,7 @@
+// Importar las funciones y componentes necesarios de React
 import { useState, useRef } from 'react';
+
+// Importar la función para mostrar notificaciones
 import { toast } from 'sonner';
 
 
@@ -22,29 +25,38 @@ function validarURL(url: string): boolean {
  * @returns Un formulario para acortar una URL.
  */
 export default function ShorterURL({ userId }: { userId?: number }) {
-    const [url, setUrl] = useState<string>() // Estado para almacenar la URL ingresada por el usuario
-    const [error, setError] = useState<string>() // Estado para almacenar mensajes de error
-    const shortenedUrlRef = useRef<HTMLInputElement>(null) // Referencia al input donde se mostrará la URL acortada
+    // Estado para almacenar la URL ingresada por el usuario
+    const [url, setUrl] = useState<string>() 
+
+    // Estado para almacenar mensajes de error
+    const [error, setError] = useState<string>() 
+
+    // Referencia al input donde se mostrará la URL acortada
+    const shortenedUrlRef = useRef<HTMLInputElement>(null) 
 
     /**
      * Maneja el envío del formulario para acortar la URL.
      * @param e El evento del formulario.
      */
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault() // Evita el comportamiento predeterminado del formulario
+        // Evita el comportamiento predeterminado del formulario
+        e.preventDefault() 
 
         if (!url) {
-            setError('Por favor, introduce una URL'); // Establece un mensaje de error si no se proporciona una URL
+            // Establece un mensaje de error si no se proporciona una URL
+            setError('Por favor, introduce una URL'); 
             return;
         }
 
         if (!validarURL(url)) {
-            setError('Por favor, introduce una URL válida'); // Establece un mensaje de error si la URL no es válida
+            // Establece un mensaje de error si la URL no es válida
+            setError('Por favor, introduce una URL válida'); 
             return;
         }
         
         try {
-            // Realiza una solicitud para acortar la URL
+            // Realiza una solicitud de tipo POST para acortar la URL y 
+            // obtener la URL acortada en un objeto JSON
             const res = await fetch('/api/shorter-url', {
                 method: 'POST',
                 headers: {
@@ -55,24 +67,29 @@ export default function ShorterURL({ userId }: { userId?: number }) {
                     userId: userId ?? null
                 })
             })
-            console.log(res)
 
-            const body = await res.json() // Obtiene la respuesta de la solicitud
+            // Obtiene la respuesta de la solicitud
+            const body = await res.json() 
 
-            const shortenedUrl = body.shortenedUrl // Obtiene la URL acortada de la respuesta
+            // Obtiene la URL acortada de la respuesta
+            const shortenedUrl = body.shortenedUrl 
 
+            // Verifica si se devolvió una URL acortada
             if (!shortenedUrl) {
-                setError('Error al acortar la URL') // Establece un mensaje de error si no se devuelve una URL acortada
+                // Establece un mensaje de error si no se devuelve una URL
+                setError('Error al acortar la URL') 
                 return
             }
-            console.log(body)
-            console.log(shortenedUrl)
-            shortenedUrlRef.current!.value = shortenedUrl // Asigna la URL acortada al input
 
-            setError(undefined) // Borra el mensaje de error
+            // Asigna la URL acortada al input correspondiente
+            shortenedUrlRef.current!.value = shortenedUrl 
+
+            // Borra el mensaje de error si existe
+            setError(undefined) 
 
         } catch (error) {
-            console.log(error) // Maneja los errores de la solicitud
+            // Maneja los errores de la solicitud
+            console.log(error) 
         }
     }
 

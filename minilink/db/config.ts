@@ -1,3 +1,4 @@
+// Importar las funciones necesarias para construir la base de datos
 import { column, defineDb, defineTable } from 'astro:db';
 
 // Definir la tabla User para almacenar los usuarios

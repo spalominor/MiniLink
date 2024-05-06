@@ -1,34 +1,52 @@
 ---
+// Importar las funciones de la sesión y las utilidades de la base de datos.
 import { getSession } from "auth-astro/server";
-import Layout from "../layouts/Layout.astro";
 import { getUserByEmail, getUrlsFromUser } from "../components/utils/db";
+
+// Importar el componente visual Layout y el icono de flecha hacia atrás.
+import Layout from "../layouts/Layout.astro";
 import ArrowBack from "../components/icons/ArrowBack.astro";
 
+/**
+ * Obtiene la sesión del usuario actual.
+ * @param request La solicitud de Astro.
+ * @returns La sesión del usuario actual.
+ */
+const session = await getSession(Astro.request);
 
-
-const session = await getSession(Astro.request)
-
+/**
+ * Establece el título y el mensaje principal en función de si el usuario 
+ * está autenticado.
+ */
 const h1 = session
   ? `URLs acortadas de ${session.user?.name?.split(' ')[0]}`
-  : 'Inicia sesión para ver tus URLs acortadas'
+  : 'Inicia sesión para ver tus URLs acortadas';
 
+/**
+ * Almacena las URLs acortadas del usuario actual.
+ */
 let urls: {
   url: string;
   code: string;
-}[] = []
+}[] = [];
 
+/**
+ * Si el usuario está autenticado y se puede obtener su correo electrónico,
+ * se intenta obtener las URLs acortadas asociadas con ese usuario.
+ */
 if (session && session.user?.email) {
-  const user = await getUserByEmail(session.user.email)
+  const user = await getUserByEmail(session.user.email);
 
   if (user.success && user.data) {
-    const urlsRes = await getUrlsFromUser(user.data?.id)
+    const urlsRes = await getUrlsFromUser(user.data?.id);
 
     if (urlsRes.success && urlsRes.data) {
-      urls = urlsRes.data.map(url => url)
+      urls = urlsRes.data.map(url => url);
     }
   }
 }
 ---
+
 
 <Layout title="Mis URLs">
   <a href="/">
@@ -45,6 +63,7 @@ if (session && session.user?.email) {
     ))}
   </ul>
 </Layout>
+
 
 <style>
   .icon {
@@ -101,28 +120,42 @@ if (session && session.user?.email) {
   }
 </style>
 
+
 <script>
-  import { toast } from 'sonner'
+  // Importa la función toast de Sonner para mostrar notificaciones.
+  import { toast } from 'sonner';
 
-  const url = window.location.origin
+  // Obtiene la URL base del sitio web
+  const url = window.location.origin;
 
+  // Obtiene todos los elementos con la clase 'copy-shortened-url' y 
+  // los almacena en copyShortenedUrl
   const copyShortenedUrl = document.getElementsByClassName(
-    'copy-shortened-url') as HTMLCollectionOf<HTMLButtonElement>
+    'copy-shortened-url') as HTMLCollectionOf<HTMLButtonElement>;
 
+  // Verifica si existen elementos con la clase 'copy-shortened-url'
   if (copyShortenedUrl) {
+    // Itera sobre cada botón encontrado
     for (const button of copyShortenedUrl) {
+      // Asigna una función al evento click de cada botón
       button.onclick = (e) => {
         // @ts-ignore
-        if (!e.target?.value) return
+        // Verifica si el botón tiene un valor asociado
+        if (!e.target?.value) return;
 
         try {
           // @ts-ignore
-          window.navigator.clipboard.writeText(`${url}/${e.target.value}`)
-          toast.success('URL copiada al portapapeles!')
+          // Copia la URL acortada al portapapeles del usuario
+          window.navigator.clipboard.writeText(`${url}/${e.target.value}`);
+
+          // Muestra una notificación de éxito
+          toast.success('URL copiada al portapapeles!');
+          
         } catch {
-          toast.error('No se pudo copiar la URL al portapapeles')
+          // En caso de error, muestra una notificación de error
+          toast.error('No se pudo copiar la URL al portapapeles');
         }
-      }
+      };
     }
   }
 </script>
