@@ -2,7 +2,6 @@
 import Header from '../components/Header.astro';
 import ShorterURL from '../components/ShorterURL.astro';
 import Layout from '../layouts/Layout.astro';
-import { Toaster } from 'sonner';
 ---
 
 <Layout title="Welcome to Astro.">
@@ -13,7 +12,6 @@ import { Toaster } from 'sonner';
 		</h1>
 		<ShorterURL />
 	</main>
-	<Toaster richColors client:only/>
 </Layout>
 
 <style>

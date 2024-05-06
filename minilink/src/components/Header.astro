@@ -50,7 +50,7 @@ if (session
                     <nav>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="/my-urls">
                                     Ver mis URLs
                                 </a>
                             </li>
@@ -64,7 +64,7 @@ if (session
         )
         : (
             <div>
-                <button id="login">Login</button>
+                <button id="login">Logergin</button>
             </div>
         )
     }
@@ -87,11 +87,11 @@ if (session
     }
 
     #login {
-        color: 088f62;
+        color: #088f62;
     }
 
     #login:hover {
-        color: 3fd690;
+        color: #3fd690;
     }
 
     #dropdown-menu {
@@ -104,6 +104,7 @@ if (session
         cursor: pointer;
         width: fit-content;
         gap: 0.3rem;
+        color: white;
     }
 
     #chevron {
@@ -114,6 +115,7 @@ if (session
     #dropdown-content {
         display: none;
         position: absolute;
+        right: 0;
 
         background-color: white;
         color: black;

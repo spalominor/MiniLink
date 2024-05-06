@@ -52,3 +52,26 @@ export const getLinkUrl = async (code: string) => {
       }
     } 
   }
+
+
+export const getUrlsFromUser = async (userId: number) => {
+  try {
+    const res = await db.select({
+      url: ShortenedUrl.url,
+      code: ShortenedUrl.code
+    }).from(ShortenedUrl).where(
+      eq(ShortenedUrl.userId, userId)
+    )
+
+    return {
+      success: true,
+      data: res
+    }
+  } catch (e) {
+    const error = e as Error
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
