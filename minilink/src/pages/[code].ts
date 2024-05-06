@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getLinkUrl } from "../utils/db";
+import { getLinkUrl } from "../components/utils/db";
 
 
 
