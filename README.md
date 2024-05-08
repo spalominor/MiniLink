@@ -1,4 +1,4 @@
-# [MiniLink 🔗](https://minilink-snowy-feather-6817.fly.dev/)
+# [MiniLink 🔗](https://minilink.fly.dev/)
 
 Minilink es una aplicación web que te permite acortar URLs de forma rápida y sencilla. Con Minilink, puedes convertir URLs largas en enlaces cortos que son más fáciles de compartir, recordar y almacenar.
 
