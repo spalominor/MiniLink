@@ -6,7 +6,8 @@ Minilink es una aplicación web que te permite acortar URLs de forma rápida y s
 
 - Acortamiento de URLs: Minilink permite a los usuarios ingresar una URL larga y generar un enlace corto correspondiente.
 - Copia fácil: Los enlaces cortos generados por Minilink pueden copiarse fácilmente al portapapeles con solo un clic.
-- Seguimiento de URLs: Los usuarios pueden acceder a un panel de control para ver todas las URLs que han acortado y realizar un seguimiento de su uso.
+- Seguimiento de URLs: Los usuarios pueden registrarse para acceder a un panel de control para ver todas las URLs que han acortado y realizar un seguimiento de su uso.
+- Seguridad: Los usuarios se registran y autentican con su cuenta de Google, en un par de clics pueden acceder de manera segura y sin escribir correos ni contraseñas.
 
 ## ¿Cómo funciona?
 
